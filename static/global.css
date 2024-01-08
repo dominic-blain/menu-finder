@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'Lemon';
+    src: 
+        local('Lemon-Regular'),
+        url('/fonts/Lemon-Regular.ttf');
+    font-weight: regular;
+}
+
+@font-face {
+    font-family: 'NotoSans';
+    src: 
+        local('NotoSans'),
+        url('/fonts/NotoSans-VariableFont_wdth,wght.ttf');
+    font-weight: 400;
+    font-variation-settings: "wght" 200;
+}
+
+:root {
+    font-size: 1px;
+    --color-text: rgb(75, 75, 75);
+    --color-border: rgb(75, 75, 75, 0.2);
+
+    --section-padding: 30rem;
+    --section-spacing: 30rem;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16rem;
+    font-family: 'NotoSans', sans-serif;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.app > * {
+    padding-left: var(--section-padding);
+    padding-right: var(--section-padding);
+
+    margin-top: var(--section-spacing);
+}
