@@ -19,6 +19,7 @@
     font-size: 1px;
     --color-text: rgb(75, 75, 75);
     --color-border: rgb(75, 75, 75, 0.2);
+    --color-background: rgba(0,0,0,0.05);
 
     --section-padding: 30rem;
     --section-spacing: 30rem;
@@ -28,6 +29,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+button {
+    border: 0;
+    outline: 0;
+    background: none;
+    cursor: pointer;
 }
 
 body {
