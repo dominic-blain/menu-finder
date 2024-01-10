@@ -1,8 +1,18 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
+
     export let title: string;
+    export let index: number;
+
+    const dispatch = createEventDispatcher();
+
+    function handleInput(event: Event) {
+        const value = (event.target as HTMLElement)?.textContent ?? '';
+        dispatch('rename', { value, index });
+    }
 </script>
 
-<div>{title}</div>
+<div contenteditable="true" bind:textContent={title} on:input={handleInput}>{title}</div>
 
 <style>
     div {

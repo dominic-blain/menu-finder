@@ -2,6 +2,7 @@
 	import ColumnHeader from "$lib/components/ColumnHeader.svelte";
 import RowLabel from "$lib/components/RowLabel.svelte";
 	import RowOptions from "$lib/components/RowOptions.svelte";
+	import type { ComponentEvents } from "svelte";
 
 
     interface Row {
@@ -67,6 +68,18 @@ import RowLabel from "$lib/components/RowLabel.svelte";
         const newColumn = prompt('New column name');
         columns = [...columns, newColumn ?? 'Unknown'];
     }
+
+    function handleRenameColumn(event: ComponentEvents<ColumnHeader>['rename']) {
+        const { index, value } = event.detail;
+        columns[index] = value;
+        columns = columns;
+    }
+
+    function handleRenameRow(event: ComponentEvents<RowLabel>['rename']) {
+        const { index, value } = event.detail;
+        rows[index].label = value;
+        rows = rows;
+    }
     
 </script>
 
@@ -79,21 +92,21 @@ import RowLabel from "$lib/components/RowLabel.svelte";
     <div class="table">
         <div class="row">
             <div class="cell empty"></div>
-            {#each columns as title}
-                <div class="cell"><ColumnHeader {title} /></div>
+            {#each columns as title, index}
+            <div class="cell"><ColumnHeader {title} {index} on:rename={handleRenameColumn} /></div>
             {/each}
         </div>
         <div class="row">
-            {#each rows as {label, selected, options}}
-            <div class="cell label"><RowLabel {label} /></div>
+            {#each rows as {label, selected, options}, index}
+            <div class="cell label"><RowLabel {label} {index} on:rename={handleRenameRow} /></div>
                 {#each columns as column, index}
-                <div class="cell"><RowOptions id="{column}-{label}" selected={selected[index]} {options} /></div>
+                <div class="cell"><RowOptions id="{column}-{label}" selected={selected[index]} {options} on:rename={handleRenameRow}/></div>
                 {/each}
             {/each}
         </div>
     </div>
-    <button class="add" on:click={handleAddColumn}>+</button>
-    <button class="add">+</button>
+    <button class="add add-column" on:click={handleAddColumn}>+</button>
+    <button class="add add-row">+</button>
 </main>
 
 <footer>
@@ -110,12 +123,12 @@ import RowLabel from "$lib/components/RowLabel.svelte";
 
     main {
         display: grid;
-        grid-template-columns: 1fr 30rem;
-        grid-template-rows: auto 30rem;
+        grid-template-columns: 1fr 50rem;
+        grid-template-rows: auto 48rem;
         grid-template-areas: 
             "table" "add-column"
             "add-row" "add-row";
-        gap: 10rem;
+        
         max-width: 100%;
         overflow-x: auto;
     }
@@ -127,10 +140,18 @@ import RowLabel from "$lib/components/RowLabel.svelte";
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 4px;
         position: relative;
         transition: background-color 100ms cubic-bezier(0.075, 0.82, 0.165, 1);
-        border: 1px dashed var(--color-border);
+        border: 1px solid var(--color-border);
+        
+    }
+
+    button.add-row {
+        border-top: none;
+    }
+
+    button.add-column {
+        border-left: none;
     }
     
     button.add:hover {
