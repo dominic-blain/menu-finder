@@ -1,9 +1,8 @@
 <script lang="ts">
 	import ColumnHeader from "$lib/components/ColumnHeader.svelte";
-import RowLabel from "$lib/components/RowLabel.svelte";
+    import RowLabel from "$lib/components/RowLabel.svelte";
 	import RowOptions from "$lib/components/RowOptions.svelte";
 	import type { ComponentEvents } from "svelte";
-
 
     interface Row {
         label: string;
@@ -137,6 +136,9 @@ import RowLabel from "$lib/components/RowLabel.svelte";
 </footer>
 
 <style>
+    header {
+        text-align: center;
+    }
     h1 {
         font-size: 36px;
         font-weight: 800;
