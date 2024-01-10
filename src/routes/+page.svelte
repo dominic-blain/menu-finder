@@ -81,6 +81,16 @@ import RowLabel from "$lib/components/RowLabel.svelte";
         columns = columns;
     }
 
+    function handleAddRow() {
+        const newRowOptions = prompt('Enter options for row (comma separated)')?.split(',').map(o => o.trim()) ?? [];
+        const newRow: Row = {
+            label: `Row ${rows.length + 1}`,
+            options: newRowOptions,
+            selected: [],
+        }
+        rows = [...rows, newRow];
+    }
+
     function handleRenameRow(event: ComponentEvents<RowLabel>['rename']) {
         const { index, value } = event.detail;
         rows[index].label = value;
@@ -104,8 +114,8 @@ import RowLabel from "$lib/components/RowLabel.svelte";
             </div>
             {/each}
         </div>
+        {#each rows as {label, selected, options}, index}
         <div class="row">
-            {#each rows as {label, selected, options}, index}
             <div class="cell label">
                 <RowLabel {label} {index} on:rename={handleRenameRow} />
             </div>
@@ -114,11 +124,11 @@ import RowLabel from "$lib/components/RowLabel.svelte";
                 <RowOptions id="{column}-{label}" selected={selected[index]} {options} on:rename={handleRenameRow}/>
             </div>
             {/each}
-            {/each}
         </div>
+        {/each}
     </div>
     <button class="add add-column" on:click={handleAddColumn}>+</button>
-    <button class="add add-row">+</button>
+    <button class="add add-row" on:click={handleAddRow}>+</button>
 </main>
 
 <footer>

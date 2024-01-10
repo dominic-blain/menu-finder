@@ -43,6 +43,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    color: inherit;
 }
 
 button {
@@ -50,7 +51,6 @@ button {
     outline: 0;
     background: none;
     cursor: pointer;
-    color: var(--color-text);
 }
 
 [contenteditable] {
