@@ -14,10 +14,10 @@
 <style>
     select {
         font-size: 16px;
-        background-color: var(--color-background);
         border: none;
         padding: 6rem 4rem;
         outline: none;
         border-radius: 3px;
+        width: 100%;
     }
 </style>

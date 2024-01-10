@@ -75,6 +75,12 @@ import RowLabel from "$lib/components/RowLabel.svelte";
         columns = columns;
     }
 
+    function handleDeleteColumn(event: ComponentEvents<ColumnHeader>['delete']) {
+        const { index } = event.detail;
+        columns.splice(index, 1);
+        columns = columns;
+    }
+
     function handleRenameRow(event: ComponentEvents<RowLabel>['rename']) {
         const { index, value } = event.detail;
         rows[index].label = value;
@@ -93,15 +99,21 @@ import RowLabel from "$lib/components/RowLabel.svelte";
         <div class="row">
             <div class="cell empty"></div>
             {#each columns as title, index}
-            <div class="cell"><ColumnHeader {title} {index} on:rename={handleRenameColumn} /></div>
+            <div class="cell">
+                <ColumnHeader {title} {index} on:rename={handleRenameColumn} on:delete={handleDeleteColumn} />
+            </div>
             {/each}
         </div>
         <div class="row">
             {#each rows as {label, selected, options}, index}
-            <div class="cell label"><RowLabel {label} {index} on:rename={handleRenameRow} /></div>
-                {#each columns as column, index}
-                <div class="cell"><RowOptions id="{column}-{label}" selected={selected[index]} {options} on:rename={handleRenameRow}/></div>
-                {/each}
+            <div class="cell label">
+                <RowLabel {label} {index} on:rename={handleRenameRow} />
+            </div>
+            {#each columns as column, index}
+            <div class="cell">
+                <RowOptions id="{column}-{label}" selected={selected[index]} {options} on:rename={handleRenameRow}/>
+            </div>
+            {/each}
             {/each}
         </div>
     </div>
@@ -118,7 +130,6 @@ import RowLabel from "$lib/components/RowLabel.svelte";
     h1 {
         font-size: 36px;
         font-weight: 800;
-        color: rgb(50,50,50);
     }
 
     main {
@@ -131,6 +142,7 @@ import RowLabel from "$lib/components/RowLabel.svelte";
         
         max-width: 100%;
         overflow-x: auto;
+        padding-top: 20rem;
     }
 
     button.add {
@@ -142,7 +154,7 @@ import RowLabel from "$lib/components/RowLabel.svelte";
         justify-content: center;
         position: relative;
         transition: background-color 100ms cubic-bezier(0.075, 0.82, 0.165, 1);
-        border: 1px solid var(--color-border);
+        border: 1px solid var(--borderColor);
         
     }
 
@@ -155,7 +167,7 @@ import RowLabel from "$lib/components/RowLabel.svelte";
     }
     
     button.add:hover {
-        background-color: var(--color-background);
+        background-color: var(--bgColor-active);
     }
 
     .table {
@@ -171,21 +183,22 @@ import RowLabel from "$lib/components/RowLabel.svelte";
     .cell {
         display: table-cell;
         padding: 10rem;
-        border-left: 1px solid var(--color-border);
-        border-top: 1px solid var(--color-border);
+        border-left: 1px solid var(--borderColor);
+        border-top: 1px solid var(--borderColor);
     }
 
     .cell:last-child:not(.empty) {
-        border-right: 1px solid var(--color-border);
+        border-right: 1px solid var(--borderColor);
     }
 
     .row:last-child .cell:not(.empty) {
         padding-bottom: 10rem;
-        border-bottom: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--borderColor);
     }
 
     .cell:where(.empty) {
         border: none;
+        background-color: var(--color-background);
     }
 
     footer {
@@ -206,21 +219,22 @@ import RowLabel from "$lib/components/RowLabel.svelte";
     }
 
     button.main {
-        background-color: var(--color-text);
-        border-color: var(--color-text);
-        color: white;
+        background-color: var(--bgColor-button-main);
+        border-color: var(--bgColor-button-main);
+        color: var(--color-button-main);
     }
     button.main:hover {
-        background-color: rgb(50,50,50);
-        border-color: rgb(50,50,50);
+        background-color: var(--bgColor-button-main-hover);
+        border-color: var(--borderColor-button-main-hover);
     }
 
     button.secondary {
-        border-color: var(--color-text);
+        border-color: var(--borderColor-button-secondary);
+        color: var(--color-button-secondary);
     }
     button.secondary:hover {
-        border-color: black;
-        color: black;
+        border-color: var(--borderColor-button-secondary-hover);
+        color: var(--color-button-secondary-hover);
     }
 
     

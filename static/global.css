@@ -17,9 +17,23 @@
 
 :root {
     font-size: 1px;
-    --color-text: rgb(75, 75, 75);
-    --color-border: rgb(75, 75, 75, 0.2);
-    --color-background: rgba(0,0,0,0.05);
+    --color-text: darkslateblue;
+    --color-button-main: white;
+    --color-button-secondary: var(--color-text);
+    --color-button-secondary-hover: var(var(--bgColor-button-main-hover));
+    --color-button-danger: tomato;
+    
+    --borderColor: lavender;
+    --borderColor-button-main: var(--bgColor-button-main);
+    --borderColor-button-main-hover: var(--bgColor-button-main-hover);
+    --borderColor-button-secondary: var(--borderColor);
+    --borderColor-button-secondary-hover: var(--borderColor-button-main-hover);
+    
+    --bgColor-disabled: ghostwhite;
+    --bgColor-active: aliceblue;
+    
+    --bgColor-button-main: var(--color-text);
+    --bgColor-button-main-hover: midnightblue;
 
     --section-padding: 30rem;
     --section-spacing: 30rem;
@@ -36,6 +50,7 @@ button {
     outline: 0;
     background: none;
     cursor: pointer;
+    color: var(--color-text);
 }
 
 [contenteditable] {
@@ -46,11 +61,11 @@ button {
     min-width: 1em;
 }
 [contenteditable]:hover {
-    border-color: var(--color-border);
+    border-color: var(--borderColor);
 }
 
 [contenteditable]:focus {
-    border-color: var(--color-border);
+    border-color: var(--borderColor);
 }
 
 body {

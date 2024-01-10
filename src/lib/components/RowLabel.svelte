@@ -12,7 +12,7 @@
     }
 </script>
 
-<div contenteditable="true" bind:textContent={label} on:input={handleInput}>{label}</div>
+<div contenteditable="plaintext-only" bind:textContent={label} on:input={handleInput}>{label}</div>
 
 <style>
     div {
